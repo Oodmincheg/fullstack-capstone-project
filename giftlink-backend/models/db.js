@@ -13,16 +13,13 @@ async function connectToDatabase() {
         return dbInstance
     };
 
-    const client = new MongoClient(url);      
+    const client = new MongoClient(url, { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true 
+    });      
 
     // Task 1: Connect to MongoDB
-    try {
-        await client.connect();
-        console.log("Connected successfully to MongoDB server");
-    } catch (err) {
-        console.error("Failed to connect to MongoDB:", err);
-        throw err;
-    }
+    await client.connect();
 
     // Task 2: Connect to database giftDB and store in variable dbInstance
     dbInstance = client.db(dbName);
